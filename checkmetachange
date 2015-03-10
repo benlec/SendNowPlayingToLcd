@@ -1,0 +1,20 @@
+# Notifier example from tutorial
+#
+# See: http://github.com/seb-m/pyinotify/wiki/Tutorial
+#
+import pyinotify
+import os
+
+wm = pyinotify.WatchManager()  # Watch Manager
+mask = pyinotify.IN_MODIFY  # watched events
+
+class EventHandler(pyinotify.ProcessEvent):
+    def process_IN_MODIFY(self, event):
+        #print "Modified NowPlaying:", event.pathname
+	os.system('sudo python /home/pi/Airplay/shairport/metadata/nowplayingtolcd.py')
+
+handler = EventHandler()
+notifier = pyinotify.Notifier(wm, handler)
+wdd = wm.add_watch('/home/pi/Airplay/shairport/metadata/now_playing', mask, rec=True)
+
+notifier.loop()
