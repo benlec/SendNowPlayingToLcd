@@ -1,0 +1,58 @@
+import time
+import dot3k.lcd as lcd 
+import dot3k.backlight as backlight 
+from dot3k.menu import Menu, MenuOption 
+from random import randint
+
+# Set the backlights independently
+def setbacklight():
+  backlight.left_rgb(randint(0,255),randint(0,255),randint(0,255))
+  backlight.mid_rgb(randint(0,255),randint(0,255),randint(0,255))
+  backlight.right_rgb(randint(0,255),randint(0,255),randint(0,255))
+
+def setbargraph():
+  backlight.set_graph(1.0)
+  #time.sleep(0.1)
+  backlight.set_graph(0)
+
+#Read file in reverse order and store song info to a list
+def readonesonginfo():
+  myfile = open('/home/pi/Airplay/shairport/metadata/now_playing', 'r')
+  mylines = myfile.readlines()
+  myfile.close()
+  mylines.reverse()
+  i = 0 #set cursors here to read only one song info
+  # The list will contain this
+  #[0] Artist
+  #[1] Title
+  #[2] Album
+  mysong = list() #List containing song info
+  for line in mylines:
+	if "artist=" in line: #detect [artist] metadata info
+		mysong.append(line)
+	if "title=" in line: #detect [title] metadata info
+		mysong.append(line)
+	if "album=" in line: #detect [album] metadata info
+		mysong.append(line)
+	if "artwork=" in line: #detect [artwork] metadata info as a marker for unique metadata (if we continue we would read all data)
+		i = i+1
+	if i>1: #stop reading metadata once we have the 1st song metadata, this is the one we are currently playing
+		break
+  return mysong
+
+def writesonginfotolcd():
+  mysong = readonesonginfo() #Get song info from metadata now_playing file
+  setbacklight() # Change backlight color when updating song info
+  setbargraph()
+  #lcd.clear() # Clear screen
+  lcd.set_cursor_position(0,0) # set dot3k cursor on row 1
+  #print(mysong[2].strip()[7:23])
+  lcd.write(mysong[2].strip()[7:23]) # remove the "artist=" prefix and read only the 1st 16char of artist name (23-7=16)
+  lcd.set_cursor_position(0,1) # set dot3k cursor on row 2
+  #print(mysong[1].strip()[6:22])
+  lcd.write(mysong[1].strip()[6:22]) # remove the "title=" metadata prefix and read only 16 char
+  lcd.set_cursor_position(0,2) # set dot3k cursor on row 3
+  #print(mysong[0].strip()[6:22])
+  lcd.write(mysong[0].strip()[6:22]) # remove the "album=" metadata prefix and read only 16 char
+
+writesonginfotolcd()
