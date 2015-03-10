@@ -11,6 +11,19 @@ m-your-iphone/ make sure you read all the comments below the post. Some steps ca
 
 1.2°) You also need to setup your LCD Screen depending on the model you use. In my case i used Pimoroni dot3k. Get it here: https://github.com/pimoroni/dot3k
 
-2°)
+2°) Modify the Shairport Daemon in order to make it able to output NowPlaying metadata
 
-3°)
+This repository provides a Shairport Daemon file modified in order to
+- Enable Metadata output to a given directory
+- Cleanup NowPlaying file on startup
+- Delete all the Cover files on startup
+
+These cleanup are important to handle in order not to leave useless cached metadata info on the RPi box and start each session with a clean now_playing file. ShairPort simply append the NowPlaying into a file and never clean it up which complexify the reading of this file. It also never cleanup the Artwork Covers, it lets all the history sit there.
+
+3°) Read Now_Playing Metadata information provided by Shairport and send it to LCD.
+
+This repository provides a script to do so.
+
+4°) Run a script in the background to monitory NowPlaying info changes in order to send them to LCDC screen.
+
+This repository provides a script to do so. Execution will be integrated to ShairPort daemon
