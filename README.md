@@ -24,6 +24,6 @@ These cleanup are important to handle in order not to leave useless cached metad
 
 This repository provides a script to do so.
 
-4°) Run a script in the background to monitory NowPlaying info changes in order to send them to LCDC screen.
+4°) Run a script in the background to monitory NowPlaying info changes in order to send them to LCD screen.
 
 This repository provides a script to do so. Execution will be integrated to ShairPort daemon
