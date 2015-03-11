@@ -26,4 +26,6 @@ This repository provides a script to do so.
 
 4°) Run a script in the background to monitory NowPlaying info changes in order to send them to LCD screen.
 
-This repository provides a script to do so. Execution will be integrated to ShairPort daemon
+This repository provides a script to do so. Execution will be integrated to ShairPort daemon.
+The scrirpt is based on one of the PyInotify Tutorial, you need to install PyInotify as well as a pre-requisite
+http://github.com/seb-m/pyinotify/wiki/Tutorial
