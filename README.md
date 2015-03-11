@@ -28,4 +28,4 @@ This repository provides a script to do so.
 
 This repository provides a script to do so. Execution will be integrated to ShairPort daemon.
 The scrirpt is based on one of the PyInotify Tutorial, you need to install PyInotify as well as a pre-requisite
-http://github.com/seb-m/pyinotify/wiki/Tutorial
+http://github.com/seb-m/pyinotify
