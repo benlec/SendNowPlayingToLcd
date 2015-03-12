@@ -21,7 +21,6 @@ def readonesonginfo():
   mylines = myfile.readlines()
   myfile.close()
   mylines.reverse()
-  i = 0 #set cursors here to read only one song info
   # The list will contain this
   #[0] Artist
   #[1] Title
@@ -34,9 +33,7 @@ def readonesonginfo():
 		mysong.append(line)
 	if "album=" in line: #detect [album] metadata info
 		mysong.append(line)
-	if "artwork=" in line: #detect [artwork] metadata info as a marker for unique metadata (if we continue we would read all data)
-		i = i+1
-	if i>1: #stop reading metadata once we have the 1st song metadata, this is the one we are currently playing
+	if len(line)==0: #stop reading metadata once we have the 1st song metadata (currently playing). 0 length string
 		break
   return mysong
 
